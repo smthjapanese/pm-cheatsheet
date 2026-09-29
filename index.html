@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Шпаргалка к собеседованию Junior PM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1F5; --card:#FFFFFF; --ink:#1E2A44; --muted:#5B6782;
+  --line:#D5DBE5; --mark:#F2C230; --ok:#2F7D78; --warn:#B4442E; --tick:#C9D0DC;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#141B2B; --card:#1C2538; --ink:#E6EAF2; --muted:#9AA5BD;
+    --line:#2E3A52; --mark:#E8B923; --ok:#5DB3AC; --warn:#E07A63; --tick:#34405A;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141B2B; --card:#1C2538; --ink:#E6EAF2; --muted:#9AA5BD;
+  --line:#2E3A52; --mark:#E8B923; --ok:#5DB3AC; --warn:#E07A63; --tick:#34405A;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:16px/1.55 "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:0 18px 48px}
+header.hero{padding:28px 0 18px}
+h1{font-family:"Unbounded","Onest",system-ui,sans-serif;font-weight:700;
+  font-size:clamp(26px,7vw,38px);line-height:1.1;margin:0 0 10px;letter-spacing:-.01em}
+.lead{color:var(--muted);margin:0 0 18px;max-width:60ch}
+.progress{display:flex;align-items:center;gap:12px}
+.progress .bar{flex:1;height:10px;background:var(--tick);border-radius:5px;overflow:hidden}
+.progress .fill{height:100%;background:var(--ok);width:0;transition:width .3s}
+.progress span{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);
+  display:flex;gap:6px;overflow-x:auto;padding:10px 0;margin:0 -18px;padding-left:18px;padding-right:18px;
+  border-bottom:1px solid var(--line);scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);
+  font:500 15px "Onest",system-ui,sans-serif;padding:8px 14px;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tab:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+section{display:none;padding-top:18px}
+section.on{display:block}
+h2{font-family:"Unbounded","Onest",system-ui,sans-serif;font-weight:500;font-size:20px;margin:26px 0 8px}
+section>h2:first-child{margin-top:4px}
+.note{color:var(--muted);font-size:15px;margin:0 0 14px}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 10px}
+details[open]{border-color:var(--ink)}
+summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;
+  grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:start}
+summary::-webkit-details-marker{display:none}
+.rank{font-family:"Unbounded",system-ui,sans-serif;font-weight:700;font-size:18px;min-width:1.6em;color:var(--muted)}
+.qt{font-weight:700;line-height:1.3}
+.done .qt{text-decoration:line-through;text-decoration-color:var(--ok);text-decoration-thickness:2px}
+.chk{width:22px;height:22px;accent-color:var(--ok);margin:0}
+.meta{grid-column:2/4;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ticks{display:flex;gap:2px}
+.ticks i{display:block;width:8px;height:14px;border-radius:2px;background:var(--tick)}
+.ticks i.f{background:var(--mark)}
+.cnt{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.jr{font-size:12px;font-weight:700;color:var(--ok);border:1.5px solid var(--ok);border-radius:6px;padding:0 6px}
+.body{padding:0 16px 16px;border-top:1px dashed var(--line)}
+.body h3{font-size:14px;font-weight:700;margin:14px 0 4px;color:var(--muted)}
+.body h3.mine{color:var(--ok)}
+.body h3.bad{color:var(--warn)}
+.body p,.body li{margin:0 0 4px}
+.body ul,.body ol{margin:0;padding-left:20px}
+.q{font-style:italic}
+.plain summary{grid-template-columns:1fr auto}
+.plain summary::after{content:"+";font-weight:700;color:var(--muted)}
+.plain[open] summary::after{content:"−"}
+.fix{background:var(--card);border-left:4px solid var(--mark);border-radius:0 10px 10px 0;padding:12px 14px;margin:0 0 10px}
+.fix b{display:block;margin-bottom:2px}
+.flag li{margin-bottom:8px}
+.flag.red li::marker{color:var(--warn)}
+.flag.green li::marker{color:var(--ok)}
+code{font-size:.92em;background:var(--tick);padding:1px 5px;border-radius:4px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px;background:var(--card);border-radius:10px;overflow:hidden}
+td,th{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{font-weight:700}
+footer{color:var(--muted);font-size:13px;margin-top:30px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <h1>Собеседование Junior PM: что спрашивают чаще всего</h1>
+  <p class="lead">Выжимка из 17 мок-интервью, почищенная от ошибок NotebookLM. Отмечай галочкой вопрос, когда твой ответ готов и отрепетирован вслух.</p>
+  <div class="progress" aria-live="polite"><div class="bar"><div class="fill" id="pfill"></div></div><span id="ptext">0 из 17 готово</span></div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab" role="tab" aria-selected="true" data-t="top">Топ вопросов</button>
+  <button class="tab" role="tab" aria-selected="false" data-t="cases">Кейсы</button>
+  <button class="tab" role="tab" aria-selected="false" data-t="tech">Техблок</button>
+  <button class="tab" role="tab" aria-selected="false" data-t="flags">Флаги</button>
+  <button class="tab" role="tab" aria-selected="false" data-t="game">Геймдев</button>
+  <button class="tab" role="tab" aria-selected="false" data-t="fix">Поправки</button>
+</nav>
+
+<section id="top" class="on">
+  <p class="note">Жёлтые деления — в скольких из 17 источников встречается тема (оценка NotebookLM, порядок надёжный, точные числа нет). Зелёный ярлык — особый вес для Junior. Самое важное для джуна: самопрезентация, методологии, кейсы.</p>
+  <div id="qlist"></div>
+</section>
+
+<section id="cases">
+  <p class="note">Универсальная схема для любого незнакомого кейса: уточню вводные → найду причину → оценю влияние на сроки, бюджет, качество → предупрежу стейкхолдеров → предложу 2–3 варианта → зафиксирую письменно и сделаю выводы.</p>
+  <div id="clist"></div>
+</section>
+
+<section id="tech">
+  <p class="note">Код писать не просят. Нужно понимать цепочку задачи и говорить с командой на одном языке. Твой козырь — avito_pvz: REST API, PostgreSQL, Docker, Git ты трогал руками, объясняй через него.</p>
+  <div id="tlist"></div>
+</section>
+
+<section id="flags">
+  <h2>Что валит кандидата</h2>
+  <ul class="flag red">
+    <li><b>Монолог на 10 минут.</b> Самопрезентация — 1,5–2 минуты, про роль и результат, а не про устройство бизнеса.</li>
+    <li><b>Жалобы на прошлую работу, команду или заказчика.</b></li>
+    <li><b>Штампы без фактов.</b> «Коммуникабельный» не работает, работают цифры, состав команды, инструменты.</li>
+    <li><b>Выдуманный опыт.</b> Изображать программиста или эксперта там, где плаваешь, — считывается сразу. Лучше «знаю на уровне концепции, решение принимал бы вместе с техлидом».</li>
+    <li><b>Догматизм.</b> «Scrum для всего, Waterfall устарел».</li>
+    <li><b>Согласие на всё.</b> «Да, сделаем» заказчику без оценки с командой.</li>
+    <li><b>Овертаймы как метод управления</b> и мотивация только деньгами или давлением.</li>
+    <li><b>Провалов не было / виноваты другие.</b></li>
+    <li><b>Договорённости устно</b>, без follow-up и change request.</li>
+    <li><b>Нет вопросов к компании</b> в конце.</li>
+  </ul>
+  <h2>Что выделяет сильного джуна без IT-опыта</h2>
+  <ul class="flag green">
+    <li><b>Опыт ответственности вне IT.</b> Руководство людьми, переговоры, результат в цифрах — это у тебя есть.</li>
+    <li><b>Теория как в учебнике:</b> Scrum Guide, Kanban, артефакты, риски.</li>
+    <li><b>Структурное мышление в кейсах:</b> уточняющие вопросы до решения, рассуждение вслух.</li>
+    <li><b>Понимание SDLC</b> и ролей в команде без попытки казаться разработчиком.</li>
+    <li><b>Фокус на бизнес-результате:</b> PM обеспечивает прозрачность и доводит до релиза, а не раздаёт задачи.</li>
+    <li><b>Упаковка:</b> резюме в одну колонку, 1,5–2 минуты о себе, 3–4 вопроса к нанимателю.</li>
+  </ul>
+  <h2>Вопросы нанимателю</h2>
+  <ul>
+    <li>Какие задачи будут у меня в первые три месяца и что будет считаться успехом испытательного срока?</li>
+    <li>Как устроен процесс в команде: спринты, канбан, гибрид? Кто ставит приоритеты?</li>
+    <li>С какими главными сложностями сейчас сталкивается проект?</li>
+    <li>Как PM взаимодействует с продюсером, геймдизайнерами и аналитиками?</li>
+  </ul>
+</section>
+
+<section id="game">
+  <p class="note">В твоих 17 источниках геймдева нет совсем, а целишься ты в Playrix. Это база, которую стоит знать; детали процесса конкретной студии уточняй в вакансии и у реферала.</p>
+  <h2>Этапы разработки игры</h2>
+  <p>Концепт → прототип (проверка кора: весело или нет) → пре-продакшн → продакшн → софт-лонч в тестовых странах → глобальный запуск → LiveOps (живая поддержка). У мобильной free-to-play игры основная жизнь начинается после релиза.</p>
+  <h2>LiveOps</h2>
+  <p>Регулярные ивенты, новые уровни и контент, сезонные акции, A/B-тесты фич и баланса. Для PM это непрерывный поток релизов с жёстким календарём ивентов — ближе к Kanban и релизным поездам, чем к классическому проекту.</p>
+  <h2>Метрики</h2>
+  <div class="tbl"><table>
+    <tr><th>Метрика</th><th>Что показывает</th></tr>
+    <tr><td>Retention D1 / D7 / D30</td><td>Доля игроков, вернувшихся через 1, 7, 30 дней</td></tr>
+    <tr><td>DAU / MAU</td><td>Активные за день и месяц; их отношение — «липкость»</td></tr>
+    <tr><td>ARPDAU</td><td>Средняя выручка на активного игрока в день</td></tr>
+    <tr><td>Конверсия в платящих</td><td>Доля игроков, сделавших покупку</td></tr>
+    <tr><td>LTV</td><td>Сколько игрок принесёт за всё время</td></tr>
+  </table></div>
+  <h2>Команда</h2>
+  <p>Геймдизайнеры, 2D/3D-художники, аниматоры, клиентские и серверные программисты, QA, аналитики, продюсер. Знай, кто за что отвечает, чтобы понимать, куда нести вопрос.</p>
+  <h2>Приоритизация</h2>
+  <p>RICE, MoSCoW и Kano (базовые, ожидаемые и восхищающие фичи). Инструменты аналитики: Amplitude, GameAnalytics.</p>
+  <h2>Мостик от твоего опыта</h2>
+  <p>Каршеринг и мобильная игра похожи сильнее, чем кажется: продукт живёт в приложении, решения принимаются по метрикам, а простой автомобиля и отток игрока — это потерянная выручка. Твои −64% простоя и −79% оборачиваемости — пример data-driven подхода, который нужен в LiveOps.</p>
+</section>
+
+<section id="fix">
+  <p class="note">Где NotebookLM ошибся или упростил. Особенно важно, если параллельно готовишься к PSM I: там эти неточности стоят баллов.</p>
+  <div class="fix"><b>Цифры «N из 17» и «доля в оценке 25–30%» — не статистика.</b>Это прикидка модели. Номера в квадратных скобках — сноски на фрагменты, а не номера источников. Порядок тем верный, проценты не цитируй.</div>
+  <div class="fix"><b>В Scrum пять событий, а не «ритуалов».</b>Sprint, Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective. Refinement (груминг) — постоянная активность, не событие.</div>
+  <div class="fix"><b>Sprint Review — не просто демо.</b>Это рабочая сессия со стейкхолдерами: смотрят инкремент и решают, что менять в бэклоге дальше.</div>
+  <div class="fix"><b>Daily Scrum — для разработчиков, а не отчёт PM.</b>Проводят его сами Developers, цель — прогресс к цели спринта и план на сутки.</div>
+  <div class="fix"><b>DoR нет в Scrum Guide.</b>Это популярная командная практика. DoD — официальное обязательство для инкремента. На интервью так и скажи.</div>
+  <div class="fix"><b>В Scrum нет роли «проджект-менеджер».</b>Есть Product Owner, Scrum Master и Developers. Будь готов объяснить, где PM пересекается с каждой ролью.</div>
+  <div class="fix"><b>Изменения в спринте.</b>По Scrum Guide нельзя менять то, что ставит под угрозу цель спринта; объём можно уточнять с PO. Правило «одну задачу вынули, одну вставили» — практика, а не стандарт.</div>
+  <div class="fix"><b>Crashing и fast-tracking — разные вещи.</b>Crashing — добавить ресурсы на критический путь (дороже). Fast-tracking — запараллелить задачи, которые шли последовательно (рискованнее). В кейсе про 50% готовности они смешаны.</div>
+  <div class="fix"><b>Стратегии по рискам неполные.</b>Для угроз по PMBOK 7: escalate, avoid, transfer, mitigate, accept. Для возможностей: exploit, enhance, share, accept.</div>
+  <div class="fix"><b>Железный треугольник.</b>Классически это scope, time, cost, а качество — в центре как результат баланса.</div>
+  <div class="fix"><b>Опечатка в кейсе про демо.</b>Там «SEO», имеется в виду CEO — генеральный директор заказчика.</div>
+</section>
+
+<footer>Собрано из твоей выборки NotebookLM (17 источников) с правками по Scrum Guide 2020 и PMBOK 7.</footer>
+</div>
+
+<script>
+const Q=[
+{t:"Расскажи о себе и почему хочешь стать PM",n:16,jr:1,
+ v:["Расскажите о себе, опыте и достижениях","Почему PM и почему IT?","Почему уходите с текущей работы?","Почему наша компания, кем видите себя через 5 лет?","Что сделаете в первые 4 недели?","Слабая и сильная сторона?"],
+ c:"Структуру мышления, уложишься ли в 1,5–2 минуты, осознанность перехода, понимание, что PM работает на бизнес-результат.",
+ s:["Бэкграунд одной фразой и мотивация перехода","2–3 ключевых кейса: роль, команда, зона ответственности","Результаты в цифрах","Почему именно эта компания и роль"],
+ e:["Биография со школы","Детали бизнеса вместо своей роли","Штампы без фактов","Жалобы на прошлое место"],
+ m:"Делимобил: руководство командой, −64% простоя, −79% оборачиваемости склада, −81% переплат. ВЭД в Натурфудс и MV Parts. avito_pvz как IT-опыт. Google PM Certificate. Для Playrix — реферал и конференция."},
+{t:"Методологии: Scrum, Kanban, Waterfall и выбор между ними",n:14,jr:1,
+ v:["Какие методологии знаете и применяли?","Отличия Scrum и Kanban","Когда Waterfall, когда Agile?","Как выбрать подход под новый проект?"],
+ c:"Академическую базу и гибкость: понимаешь ли ограничения каждого подхода.",
+ s:["Критерии: неопределённость требований, жёсткость сроков и бюджета","Scrum — высокая неопределённость, спринты до месяца, цель спринта, инкремент","Kanban — непрерывный поток, WIP-лимиты, метрики потока","Waterfall — зафиксированные требования, регуляторика, железо","Пример применения или гибрида"],
+ e:["Догматизм","Путать WIP-лимиты и спринты","Waterfall для продукта с высокой неопределённостью"],
+ m:"Поток заявок на запчасти и ремонт — по сути Kanban. Импортная поставка с фиксированными этапами — ближе к Waterfall."},
+{t:"Команда: конфликты и мотивация",n:13,jr:0,
+ v:["Как разрешаете конфликты в команде?","Как мотивируете без денег?","Что делать с токсичным «гением»?","Разработчик выгорел или просит x2 к зарплате"],
+ c:"Эмоциональный интеллект, фасилитацию, позицию «взрослый — взрослый».",
+ s:["1-on-1 с каждой стороной, найти корневую причину","Общая встреча, аргументы фактами и целями бизнеса","Системное решение: закрепить правило или процесс"],
+ e:["Искать виноватого","«Я сказал — делайте»","Мотивация только деньгами"],
+ m:"Конфликт или демотивация в твоей команде в Делимобиле — нужна одна реальная история по STAR."},
+{t:"Управление рисками",n:10,jr:0,
+ v:["Ваш процесс работы с рисками","Как вести реестр и матрицу рисков?","Качественный vs количественный анализ","Что такое план Б и триггер?"],
+ c:"Проактивность и системность.",
+ s:["Идентификация с командой и по прошлым проектам","Матрица вероятность × влияние, реестр","Стратегии реагирования","Триггеры, владельцы, регулярный пересмотр"],
+ e:["Реестр составляет один PM","Реестр забыт после старта","Путать риск и случившуюся проблему"],
+ m:"ВЭД — источник историй про риски: сроки поставки, таможня, курс. Выбери реальный случай."},
+{t:"Технический кругозор",n:9,jr:1,
+ v:["Насколько PM должен понимать технику?","Клиент-сервер и микросервисы","REST API и Postman","Dev / Stage / Prod","CI/CD"],
+ c:"Понимание SDLC и умение говорить с разработчиками.",
+ s:["Цепочка frontend → backend → БД","API: методы, JSON, коды ответов","Окружения и деплой","Роль техлида в решениях"],
+ e:["Изображать программиста","Не понимать разницу между тестом и продом"],
+ m:"avito_pvz: Go, REST API, PostgreSQL, Docker, Git. Объясняй на его примере — это сильнее любой теории."},
+{t:"Провалы и уроки",n:9,jr:0,
+ v:["Самый провальный проект","Где ошиблись и как исправили?","Какие выводы сделали?"],
+ c:"Зрелость, ответственность, умение учиться.",
+ s:["Контекст и твоя ошибка","Что сделал сразу, чтобы снизить потери","Что изменил в процессе навсегда"],
+ e:["«Провалов не было»","Вина на других","Нет системного вывода"],
+ m:"Нужна реальная ошибка с последствиями и изменённым процессом. Придумывать нельзя — будут уточняющие вопросы."},
+{t:"Оценка задач и сроков",n:8,jr:0,
+ v:["Часы или story points?","Буферы и коэффициенты","Capacity и velocity","Методы оценки"],
+ c:"Реалистичность планирования.",
+ s:["Декомпозиция до задач на 2–3 дня","Оценивают исполнители, не PM","Абсолютная и относительная оценка, capacity, velocity","Буфер на неопределённость"],
+ e:["Большой буфер вместо декомпозиции","PM сам оценивает техзадачи"],
+ m:""},
+{t:"События Scrum",n:8,jr:1,
+ v:["Какие события и зачем?","Как провести хорошую ретро?","Как не превратить daily в формальность?"],
+ c:"Знание Scrum Guide и фасилитацию.",
+ s:["Planning — цель спринта и план","Daily — синхронизация разработчиков, 15 минут","Review — инкремент и адаптация бэклога со стейкхолдерами","Retro — улучшение процессов, action items с владельцами","Refinement — постоянная активность, не событие"],
+ e:["Daily как отчёт перед PM","Ретро без action items"],
+ m:"Сверяй со своей подготовкой к PSM I — формулировки должны совпадать с Scrum Guide."},
+{t:"Бэклог и приоритизация",n:7,jr:0,
+ v:["Как формируете бэклог?","RICE, ICE, MoSCoW, WSJF","Бэклог на тысячи задач — что делать?"],
+ c:"Бизнес-мышление и умение оцифровать решение.",
+ s:["Discovery и delivery","RICE = Reach × Impact × Confidence / Effort","Чистка: архив зомби-задач, фокус на целях квартала"],
+ e:["Приоритет по чутью или по громкости стейкхолдера"],
+ m:"Приоритизация закупок при ограниченном бюджете — живой пример."},
+{t:"Инструменты",n:7,jr:1,
+ v:["Какими трекерами владеете?","Статусы и доска в Jira","Отчётность и база знаний"],
+ c:"Практику работы с трекером.",
+ s:["Jira: статусы To Do → In Progress → Code Review → In Test → Done, плюс Hold","Confluence для требований и DoD, Miro для схем и ретро","Таблицы для отчётности"],
+ e:["Только Trello","Заявлять то, чем не пользовался"],
+ m:"Называй только то, что реально использовал."},
+{t:"Scope creep и железный треугольник",n:6,jr:0,
+ v:["Заказчик постоянно добавляет требования","Как оформляются изменения?","Что такое железный треугольник?"],
+ c:"Умение защищать границы проекта.",
+ s:["Scope, time, cost связаны, качество — результат баланса","Зафиксировать запрос → оценить с командой → предложить фазирование → change request"],
+ e:["Обещать фичу без оценки","Устные договорённости"],
+ m:""},
+{t:"Прогресс, критический путь, метрики поставки",n:5,jr:0,
+ v:["Что такое критический путь?","Как понять, что отстаём?","Lead time, cycle time"],
+ c:"Раннее обнаружение отставания.",
+ s:["Критический путь — самая длинная цепочка зависимых задач","Burn-down, EVM","Lead time — от запроса до релиза, cycle time — от начала работы до готовности"],
+ e:["Путать lead и cycle time"],
+ m:"Твои метрики простоя и оборачиваемости — пример управления через данные."},
+{t:"Стейкхолдеры и ожидания",n:5,jr:0,
+ v:["Как управляете ожиданиями?","Как обеспечиваете прозрачность?","Босс заказчика на демо недоволен"],
+ c:"Переговоры и системное информирование.",
+ s:["Регулярные статусы, протоколы, демо","При недовольстве: причины → согласованные ранее вехи → компромисс"],
+ e:["Встречи без follow-up","Эмоциональный спор с руководством"],
+ m:"Склады, сервисные центры, поставщики, руководство — у тебя много стейкхолдеров с разными интересами."},
+{t:"Горящие дедлайны и инциденты",n:5,jr:0,
+ v:["Релиз в понедельник, готово 50%","Упал прод","Crashing vs fast-tracking"],
+ c:"Стрессоустойчивость и чёткий алгоритм.",
+ s:["Прод: масштаб → откат или хотфикс → уведомить бизнес с ETA → разбор причин","Сроки: урезать до MVP, найти узкое место, переговоры заранее"],
+ e:["Молчать до дня релиза","Овертаймы как стандарт"],
+ m:"Срочная ситуация с простоем машин или поставкой — подойдёт как STAR."},
+{t:"Артефакты: устав, DoR, DoD, user story",n:4,jr:1,
+ v:["Какие артефакты ведёте?","DoR и DoD","User story vs use case"],
+ c:"Академическую грамотность.",
+ s:["Устав, WBS, roadmap, реестр рисков","DoR — задача готова к взятию в работу; DoD — критерии готовности инкремента","User story — ценность от лица пользователя; use case — сценарий взаимодействия шаг за шагом"],
+ e:["Путать DoR и DoD","Многостраничный устав там, где нужен лёгкий старт"],
+ m:""},
+{t:"Тестирование и баги",n:3,jr:0,
+ v:["Баг или фича?","QA не успевает"],
+ c:"Понимание процесса качества.",
+ s:["Сверка с критериями приёмки, арбитр — аналитик или PO","Качество на входе: code review, юнит-тесты, автотесты"],
+ e:[],m:""},
+{t:"Онбординг и передача знаний",n:2,jr:0,
+ v:["Новичок, а документации нет","Уходит единственный ключевой разработчик"],
+ c:"Системность и защиту от bus factor.",
+ s:["Бадди, новичок документирует свой путь","Пара к уходящему, документация в Confluence, документация в DoD"],
+ e:[],m:""}
+];
+
+const C=[
+["Сроки и требования",[
+ ["Релиз через 3 дня, готово 50%",["Вместе с PO и техлидом выделить MVP, остальное перенести","Найти узкое место: бэк, фронт или QA","Заранее выйти к стейкхолдерам с цифрами и вариантом урезанного релиза","Fast-tracking или crashing, овертайм — только разово и с компенсацией"]],
+ ["Заказчик сыплет новыми требованиями",["Объяснить через железный треугольник","Не ломать цель спринта, новое — в бэклог","Оценить с командой, оформить change request","Выяснить настоящую бизнес-цель: часто решение проще"]],
+ ["Руководство требует срочную задачу посреди спринта",["Перевести снятые задачи в Hold с комментарием о точке остановки","Согласовать, что именно выпадает из спринта","Оповестить команду о смене приоритетов"]]
+]],
+["Команда",[
+ ["Разработчик и тестировщик: баг или фича",["Поднять критерии приёмки и требования","Двусмысленно — решает аналитик или PO","Уточнить критерии, чтобы не повторялось"]],
+ ["Спор о технологии",["Выслушать каждого отдельно, потом общая встреча","Перевести на язык бизнеса: скорость MVP, поддержка, архитектура","Зафиксировать решение"]],
+ ["Токсичный незаменимый специалист",["Разговор 1-on-1 о причинах","Изолированные задачи, PM как буфер","Признавать результат, жёстко пресекать токсичность"]],
+ ["Выгорание",["1-on-1 без давления","Меньше параллельных задач","Стоп переработкам, отпуск или отгулы","Нет изменений за 1–2 месяца — экологичное расставание"]],
+ ["Сеньор саботирует нового PM",["1-on-1, понять причину","Собрать обратную связь о себе у команды","Не помогает — эскалация руководителю"]]
+]],
+["Стейкхолдеры",[
+ ["Заказчик тянет с подписанием ТЗ",["Всё письменно","Показать риски: сдвиг сроков, бюджет, снятие команды","Эскалация"]],
+ ["CEO заказчика на финальном демо: «всё переделать»",["Показать согласованное ТЗ и протоколы","Отделить ошибки от новых хотелок, новое — через change request","На будущее: всех ЛПР — в план коммуникаций и на промежуточные демо"]]
+]],
+["Инциденты и процессы",[
+ ["Упал прод",["Оценить масштаб, приоритет blocker, логи","Откат или хотфикс","Уведомить бизнес и поддержку с ETA","Разбор причин и задачи на профилактику"]],
+ ["QA — узкое горлышко",["Не пускать в тест без code review и юнит-тестов","Автотесты","Перебалансировать ресурсы"]],
+ ["Плавающий баг неделю",["Позвать экспертов извне команды","Сравнить стоимость поиска с ущербом, возможно изолировать и отложить"]],
+ ["Команда срывает 4 спринта подряд",["1-on-1 и внеочередная ретро","Задачи не больше 2–3 дней","Не брать сырые задачи","Планировать не на 100% capacity, буфер 15–20%"]]
+]],
+["Знания",[
+ ["Уходит ключевой разработчик без документации",["Попробовать удержать или договориться о плавном выходе","Пара к нему, ревью, документация","Открыть найм"]],
+ ["Онбординг без документации",["Бадди","Новичок записывает свой путь — это первая документация","Документация в DoD"]]
+]]
+];
+
+const T=[
+["SDLC и окружения","<p>Идея → аналитика → дизайн → разработка → тестирование → релиз → поддержка.</p><p><b>Dev</b> — где пишут код, <b>Stage/Test</b> — копия боевой среды для проверки, <b>Prod</b> — то, что видят пользователи.</p><p><b>Hotfix</b> — срочное исправление на проде, <b>rollback</b> — откат к прошлой стабильной версии.</p>"],
+["Клиент-сервер и микросервисы","<p>Frontend (интерфейс) ↔ backend (логика) ↔ база данных. Нажал кнопку → запрос в API → бэкенд проверяет и пишет в БД → ответ → экран «успешно».</p><p><b>Монолит</b> — одно приложение, проще на старте. <b>Микросервисы</b> — отдельные сервисы (оплата, авторизация), масштабируются независимо, сложнее в поддержке. Брокеры сообщений (RabbitMQ, Kafka) связывают сервисы асинхронно.</p>"],
+["REST API","<p>Сервисы общаются по HTTP, обычно в JSON.</p><p><code>GET</code> получить, <code>POST</code> создать, <code>PUT/PATCH</code> обновить, <code>DELETE</code> удалить.</p><p>Коды: <code>200</code> успех, <code>400</code> ошибка в запросе, <code>401</code> не авторизован, <code>404</code> не найдено, <code>500</code> ошибка сервера. Postman — инструмент для ручной отправки запросов.</p>"],
+["Базы данных и логи","<p><b>SQL</b> (PostgreSQL, MySQL) — таблицы, связи, транзакции. <b>NoSQL</b> (MongoDB) — документы, гибкая схема. <b>Redis</b> — кэш для скорости.</p><p>Логи смотрят в Kibana или Grafana, при инциденте фильтруют по ERROR.</p>"],
+["CI/CD и Git","<p><b>CI</b> — каждое изменение автоматически собирается и тестируется. <b>Continuous Delivery</b> — код всегда готов к выкатке, на прод выпускает человек кнопкой. <b>Continuous Deployment</b> — прошедший тесты код уходит на прод автоматически.</p><p>Git: ветка → коммиты → pull request → code review → слияние.</p>"],
+["Роли в команде","<p>Системный аналитик — требования и логика. Backend и frontend — серверная и клиентская часть. QA — качество. DevOps — инфраструктура и деплой. Техлид — технические решения. PM задаёт правильные вопросы и снимает блокеры, а не принимает архитектурные решения.</p>"]
+];
+
+const K="pm_cheat_done";
+let done={};try{done=JSON.parse(localStorage.getItem(K)||"{}")||{}}catch(e){done={}}
+function save(){try{localStorage.setItem(K,JSON.stringify(done))}catch(e){}}
+function prog(){const k=Object.values(done).filter(Boolean).length;
+ document.getElementById("pfill").style.width=(k/Q.length*100)+"%";
+ document.getElementById("ptext").textContent=k+" из "+Q.length+" готово"}
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const li=a=>a.map(x=>"<li>"+esc(x)+"</li>").join("");
+
+document.getElementById("qlist").innerHTML=Q.map((q,i)=>{
+ let ticks="";for(let j=0;j<17;j++)ticks+='<i class="'+(j<q.n?"f":"")+'"></i>';
+ return '<details class="'+(done[i]?"done":"")+'" data-i="'+i+'"><summary>'+
+ '<span class="rank">'+(i+1)+'</span><span class="qt">'+esc(q.t)+'</span>'+
+ '<input type="checkbox" class="chk" aria-label="Ответ готов" '+(done[i]?"checked":"")+'>'+
+ '<span class="meta"><span class="ticks" aria-hidden="true">'+ticks+'</span><span class="cnt">'+q.n+' из 17</span>'+(q.jr?'<span class="jr">Junior</span>':'')+'</span>'+
+ '</summary><div class="body">'+
+ '<h3>Как спрашивают</h3><ul class="q">'+li(q.v)+'</ul>'+
+ '<h3>Что проверяют</h3><p>'+esc(q.c)+'</p>'+
+ '<h3>Структура ответа</h3><ol>'+li(q.s)+'</ol>'+
+ (q.e.length?'<h3 class="bad">Типичные ошибки</h3><ul>'+li(q.e)+'</ul>':'')+
+ (q.m?'<h3 class="mine">Материал из твоего опыта</h3><p>'+esc(q.m)+'</p>':'')+
+ '</div></details>'}).join("");
+
+document.querySelectorAll("#qlist .chk").forEach(cb=>{
+ cb.addEventListener("click",e=>e.stopPropagation());
+ cb.addEventListener("change",e=>{const d=cb.closest("details");const i=d.dataset.i;
+  done[i]=cb.checked;d.classList.toggle("done",cb.checked);save();prog()})});
+prog();
+
+document.getElementById("clist").innerHTML=C.map(g=>'<h2>'+esc(g[0])+'</h2>'+
+ g[1].map(c=>'<details class="plain"><summary><span class="qt">'+esc(c[0])+'</span></summary><div class="body"><ol>'+li(c[1])+'</ol></div></details>').join("")).join("");
+
+document.getElementById("tlist").innerHTML=T.map(t=>'<details class="plain"><summary><span class="qt">'+esc(t[0])+'</span></summary><div class="body">'+t[1]+'</div></details>').join("");
+
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{
+ document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===b));
+ document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===b.dataset.t));
+ window.scrollTo({top:document.querySelector("nav.tabs").offsetTop-2})}));
+</script>
+</body>
+</html>
